@@ -1,0 +1,99 @@
+.mainBlock{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.listItems{
+    max-height: 450px;
+    overflow: auto;
+    margin: 15px 0 15px 0;
+}
+.todoList{
+    font-size: 20px;
+    color: black;
+    margin-bottom: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.todoListFalse{
+    font-size: 18px;
+    color: rgb(104, 84, 78);
+    margin-bottom: 15px;
+    font-weight: 500;
+    text-decoration: line-through;
+    cursor: pointer;
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.image{
+    width: 15px;
+    margin-right: 5px;
+}
+.count{
+    font-size: 25px;
+    color:black;
+    margin-left: 10px;
+    font-weight: 800;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.noTodos{
+    font-style: italic;
+    font-size: 25px;
+    color: black;
+    font-weight: 700;
+}
+.statusLinks{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.span{
+    display: flex;
+    align-items: center;
+}
+.addTodoDiv{
+    width: 80%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.functionallDiv{
+    order: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media screen and (max-width: 710px) {
+    .functionallDiv{
+        width: 73%;
+    }
+  }
+.titleName{
+    font-size: 30px;
+    color: #f50057;
+    z-index: 1;
+}
+.header{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
