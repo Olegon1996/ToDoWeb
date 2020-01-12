@@ -26,7 +26,7 @@ function ToDoAll({ todos, startFetchingData }) {
   );
 }
 
-const mapStateToProps = state => ({ todos: state.todos });
+const mapStateToProps = state => ({ todos: state.ToDoReducer.todos });
 const mapDispatchToProps = dispatch => ({
   startFetchingData: () => dispatch(startFetchingData())
 });

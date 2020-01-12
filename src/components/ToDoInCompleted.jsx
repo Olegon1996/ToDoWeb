@@ -30,6 +30,6 @@ function ToDoInCompleted({ todos }) {
   );
 }
 
-const mapStateToProps = state => ({ todos: state.todos });
+const mapStateToProps = state => ({ todos: state.ToDoReducer.todos });
 
 export default connect(mapStateToProps)(ToDoInCompleted);

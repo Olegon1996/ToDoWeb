@@ -39,10 +39,10 @@ export default function SimpleBottomNavigation({
   const [toCompleted, setToCompleted] = React.useState(false);
   const [toInCompleted, setToInCompleted] = React.useState(false);
 
-  const RedirectToHome = toHome ? <Redirect to="/" /> : null;
-  const RedirectToCompleted = toCompleted ? <Redirect to="/completed" /> : null;
+  const RedirectToHome = toHome ? <Redirect to="/app" /> : null;
+  const RedirectToCompleted = toCompleted ? <Redirect to="/app/completed" /> : null;
   const RedirectToIncompleted = toInCompleted ? (
-    <Redirect to="/incompleted" />
+    <Redirect to="/app/incompleted" />
   ) : null;
   return (
     <React.Fragment>

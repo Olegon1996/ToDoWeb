@@ -49,8 +49,8 @@ function ToDoAdd({ addToDoItem }) {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos,
-    todoLength: state.todoLength
+    todos: state.ToDoReducer.todos,
+    todoLength: state.ToDoReducer.todoLength
   };
 };
 

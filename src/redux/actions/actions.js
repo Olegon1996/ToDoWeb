@@ -5,14 +5,16 @@ import {
 } from "../actions/actionsTypes";
 import { database } from "../../firebase";
 
+let userId = localStorage.getItem("user");
+
 const addToDoItem = value => dispatch => {
   const Element = database
     .ref()
-    .child("ToDoList")
+    .child(`${userId}/todos`)
     .push({ title: value, status: true }).key;
   database
     .ref()
-    .child(`ToDoList/${Element}`)
+    .child(`${userId}/todos/${Element}`)
     .update({ id: Element });
   dispatch({ type: ADD_TODO_ITEM });
 };
@@ -20,7 +22,7 @@ const addToDoItem = value => dispatch => {
 const deleteTodoItem = id => dispatch => {
   database
     .ref()
-    .child(`ToDoList/${id}`)
+    .child(`${userId}/todos/${id}`)
     .remove();
   dispatch({ type: DELETE_TODO_ITEM });
 };
@@ -28,7 +30,7 @@ const deleteTodoItem = id => dispatch => {
 const changeStatus = obj => dispatch => {
   database
     .ref()
-    .child(`ToDoList/${obj.id}`)
+    .child(`${userId}/todos/${obj.id}`)
     .update({
       status: !obj.status
     });
