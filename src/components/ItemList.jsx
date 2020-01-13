@@ -29,10 +29,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ToDoList({ changeToDoItem, deleteTodoItem, currentTodosList }) {
+function ToDoList({ changeToDoItem, deleteTodoItem, currentTodosList, userID }) {
   const classes = useStyles();
-  const handleToggle = value => () => changeToDoItem(value);
-  const deleteItem = value => () => deleteTodoItem(value);
+  const handleToggle = value => () => changeToDoItem(value, userID);
+  const deleteItem = value => () => deleteTodoItem(value, userID);
 
   return (
     <List className={classes.root}>
@@ -78,15 +78,21 @@ function ToDoList({ changeToDoItem, deleteTodoItem, currentTodosList }) {
   );
 }
 
+const mapStateToProps = state => {
+  return {
+    userID: state.AuthReducer.userInfo.id
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
-    changeToDoItem: obj => {
-      dispatch(changeStatus(obj));
+    changeToDoItem: (obj, userID) => {
+      dispatch(changeStatus(obj, userID));
     },
-    deleteTodoItem: id => {
-      dispatch(deleteTodoItem(id));
+    deleteTodoItem: (id, userID) => {
+      dispatch(deleteTodoItem(id, userID));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(ToDoList);
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);

@@ -5,32 +5,30 @@ import {
 } from "../actions/actionsTypes";
 import { database } from "../../firebase";
 
-let userId = localStorage.getItem("user");
-
-const addToDoItem = value => dispatch => {
+const addToDoItem = (value, userID) => dispatch => {
   const Element = database
     .ref()
-    .child(`${userId}/todos`)
+    .child(`${userID}/todos`)
     .push({ title: value, status: true }).key;
   database
     .ref()
-    .child(`${userId}/todos/${Element}`)
+    .child(`${userID}/todos/${Element}`)
     .update({ id: Element });
   dispatch({ type: ADD_TODO_ITEM });
 };
 
-const deleteTodoItem = id => dispatch => {
+const deleteTodoItem = (id, userID) => dispatch => {
   database
     .ref()
-    .child(`${userId}/todos/${id}`)
+    .child(`${userID}/todos/${id}`)
     .remove();
   dispatch({ type: DELETE_TODO_ITEM });
 };
 
-const changeStatus = obj => dispatch => {
+const changeStatus = (obj, userID) => dispatch => {
   database
     .ref()
-    .child(`${userId}/todos/${obj.id}`)
+    .child(`${userID}/todos/${obj.id}`)
     .update({
       status: !obj.status
     });

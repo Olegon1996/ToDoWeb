@@ -12,12 +12,12 @@ import { HashRouter as Router, Route, useHistory } from "react-router-dom";
 import "../style.css";
 import Background from "./BGAnimation/Background";
 import DropMenu from "./DropMenu/DropMenu";
+import { Button } from "@material-ui/core";
 
-function ToDoApp({ todoLength, isUser, vereficateFunc }) {
+function ToDoApp({ todoLength, isUser, vereficateFunc, logOutFunc }) {
   const history = useHistory();
 
   useEffect(() => {
-    vereficateFunc();
     if (!isUser) {
       history.push("/");
     }
@@ -52,6 +52,7 @@ function ToDoApp({ todoLength, isUser, vereficateFunc }) {
           <Route path="/app/incompleted" component={ToDoInCompleted} />
         </div>
         <ToDoStatus />
+        <Button onClick={() => logOutFunc()} style={{color: 'white'}}>logout</Button>
       </Router>
     </div>
   );
@@ -59,13 +60,16 @@ function ToDoApp({ todoLength, isUser, vereficateFunc }) {
 
 const mapStateToProps = state => ({
   todoLength: state.ToDoReducer.todoLength,
-  isUser: state.AuthReducer
+  isUser: state.AuthReducer.isLogIn
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     vereficateFunc: () => {
       dispatch({type: 'VEREFICATE_REQUEST'});
+    },
+    logOutFunc: () => {
+      dispatch({type: 'LOGOUT_REQUEST'});
     }
   };
 };

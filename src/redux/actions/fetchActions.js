@@ -26,12 +26,11 @@ const fetchingDataError = error => ({
   errorMessage: error
 });
 
-let userId = localStorage.getItem("user");
 
-const startFetchingData = () => dispatch => {
+const startFetchingData = (id) => dispatch => {
   store.dispatch(fetchingData());
   try {
-    database.ref(`${userId}/todos`).on("value", async snap => {
+    database.ref(`${id}/todos`).on("value", async snap => {
       if (snap && snap.val() && Object.values(snap.val())) {
         let todos = await Object.values(snap.val());
         dispatch(fetchingDataSucceses(todos));

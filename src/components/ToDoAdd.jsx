@@ -9,7 +9,7 @@ import Input from "../components/TextField/TextField";
 import { useMediaQuery } from "@material-ui/core";
 
 
-function ToDoAdd({ addToDoItem }) {
+function ToDoAdd({ addToDoItem, userID }) {
   const [value, setValue] = useState("");
 
   function handleValue(e) {
@@ -18,7 +18,7 @@ function ToDoAdd({ addToDoItem }) {
 
   function saveToDo() {
     if (value) {
-      addToDoItem(value);
+      addToDoItem(value, userID);
       setValue("");
     } else {
       return null;
@@ -50,14 +50,15 @@ function ToDoAdd({ addToDoItem }) {
 const mapStateToProps = state => {
   return {
     todos: state.ToDoReducer.todos,
-    todoLength: state.ToDoReducer.todoLength
+    todoLength: state.ToDoReducer.todoLength,
+    userID: state.AuthReducer.userInfo.id
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToDoItem: value => {
-      dispatch(addToDoItem(value));
+    addToDoItem: (value, userID) => {
+      dispatch(addToDoItem(value, userID));
     }
   };
 };

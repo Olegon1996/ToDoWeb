@@ -1,10 +1,19 @@
-import { call, put, delay } from "redux-saga/effects";
-import { LogInFunc, LogUpFunc, Vereficte } from "../../Services/ApiAuth";
+import { call, put, delay, take } from "redux-saga/effects";
+import {
+  LogInFunc,
+  LogUpFunc,
+  Vereficte,
+  LogOut
+} from "../../Services/ApiAuth";
 import {
   LOGIN_ERROR,
   LOGIN_SUCCESSES,
   LOGUP_ERROR,
-  LOGUP_SUCCESSES
+  LOGUP_SUCCESSES,
+  VEREFICATE_SUCCESSES,
+  VEREFICATE_ERROR,
+  LOGOUT_SUCCESSES,
+  LOGOUT_ERROR
 } from "../actions/actionsTypes";
 
 function* logInAuthorization({ credentions: { email, password } }) {
@@ -39,20 +48,27 @@ function* logUpAuthorization({ credentions: { email, password, name } }) {
   }
 }
 
-function* logOutAuthorization(){
-
-}
-
-function* vereficateAuthorization(){
-  try{
-    yield call(Vereficte);
-    let userId = localStorage.getItem('user');
-
-    yield put({type: 'VEREFICATE_SUCCESSES', payload: ''})
-  }catch(error){
-    yield put({type: 'VEREFICATE_ERROR', payload: error})
+function* logOutAuthorization() {
+  try {
+    yield call(LogOut);
+    localStorage.removeItem("user");
+    yield put({ type: LOGOUT_SUCCESSES });
+  } catch (error) {
+    yield put({ type: LOGOUT_ERROR });
   }
 }
 
+function* vereficateAuthorization() {
+  try {
+    yield put({ type: VEREFICATE_SUCCESSES, payload: true });
+  } catch (error) {
+    yield put({ type: VEREFICATE_ERROR, payload: false });
+  }
+}
 
-export { logInAuthorization, logUpAuthorization, vereficateAuthorization };
+export {
+  logInAuthorization,
+  logUpAuthorization,
+  vereficateAuthorization,
+  logOutAuthorization
+};

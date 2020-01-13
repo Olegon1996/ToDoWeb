@@ -4,7 +4,11 @@ import {
   LOGIN_SUCCESSES,
   LOGUP_ERROR,
   LOGUP_REQUEST,
-  LOGUP_SUCCESSES
+  LOGUP_SUCCESSES,
+  LOGOUT_SUCCESSES,
+  LOGOUT_ERROR,
+  VEREFICATE_SUCCESSES,
+  VEREFICATE_ERROR
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -19,6 +23,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case "CURRENT_USER":
+      return{
+        ...state,
+        userInfo: {
+          id: action.payload.uid
+        }
+      };
+
     case LOGIN_REQUEST:
       return state;
 
@@ -59,6 +71,36 @@ export default (state = initialState, action) => {
       return {
           ...state,
           isLogIn: false,
+          userInfo: {},
+          errorText: action.payload,
+      };
+
+    case VEREFICATE_SUCCESSES:
+      return {
+          ...state,
+          isLogIn: true,
+          userInfo: {}
+      };
+
+    case VEREFICATE_ERROR:
+      return {
+          ...state,
+          isLogIn: false,
+          userInfo: {},
+          errorText: action.payload,
+      };
+
+      case LOGOUT_SUCCESSES:
+      return {
+          ...state,
+          isLogIn: false,
+          userInfo: {}
+      };
+
+    case LOGOUT_ERROR:
+      return {
+          ...state,
+          isLogIn: true,
           userInfo: {},
           errorText: action.payload,
       };
