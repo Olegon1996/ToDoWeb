@@ -36,7 +36,7 @@ function* logUpAuthorization({ credentions: { email, password, name } }) {
       email: tokenLogUp.user.email,
       uid: tokenLogUp.user.uid
     };
-    sessionStorage.setItem("token", CreatedUser);
+    sessionStorage.setItem("token", JSON.stringify(CreatedUser));
     yield put({ type: LOGUP_SUCCESSES, payload: CreatedUser });
   } catch (error) {
     yield put({ type: LOGUP_ERROR, payload: error });

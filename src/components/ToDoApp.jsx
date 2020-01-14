@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import ToDoAdd from "./ToDoAdd";
-import ToDoStatus from "./ToDoStatus";
 import ToDoCompleted from "./ToDoCompleted";
 import ToDoInCompleted from "./ToDoInCompleted";
 import ToDoAll from "./ToDoAll";
@@ -13,7 +12,6 @@ import { HashRouter as Router, Route, useHistory } from "react-router-dom";
 import "../style.css";
 import Background from "./BGAnimation/Background";
 import DropMenu from "./DropMenu/DropMenu";
-import { Button } from "@material-ui/core";
 
 function ToDoApp({ todoLength, logOutFunc, startFetchingData }) {
   const history = useHistory();
@@ -46,8 +44,8 @@ function ToDoApp({ todoLength, logOutFunc, startFetchingData }) {
               style={{
                 position: "absolute",
                 top: "15px",
-                left: "20px",
-                zIndex: "2"
+                left: "100px",
+                zIndex: "10"
               }}
             >
               <NotificationsActiveOutlinedIcon fontSize="large" />
@@ -59,8 +57,7 @@ function ToDoApp({ todoLength, logOutFunc, startFetchingData }) {
           <Route path="/app/completed" component={ToDoCompleted} />
           <Route path="/app/incompleted" component={ToDoInCompleted} />
         </div>
-        <ToDoStatus />
-        <Button onClick={() => logOutFunc()} style={{color: 'white'}}>logout</Button>
+
       </Router>
     </div>
   );

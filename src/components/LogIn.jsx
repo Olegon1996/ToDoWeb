@@ -10,7 +10,7 @@ function LogIn({ logIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const Token = sessionStorage.getItem('token');
+  const Token = sessionStorage.getItem("token");
 
   const closeModal = value => setIsOpen(value);
   const logUp = () => setIsOpen(true);
@@ -35,9 +35,18 @@ function LogIn({ logIn }) {
     }
   }, [Token, history]);
 
-  
   return (
     <React.Fragment>
+      <h2
+        style={{
+          fontFamily: "monospace",
+          textAlign: "center",
+          padding: "20px"
+        }}
+      >
+        If you want to write your to do's, you should make log in or sign up if
+        you haven't profile
+      </h2>
       <UserModal isOpen={isOpen} closeModal={closeModal} />
       <div style={style}>
         <TextField

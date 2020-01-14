@@ -13,7 +13,7 @@ import { changeStatus, deleteTodoItem } from "../redux/actions/actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '80%',
+    width: '90%',
     maxHeight: 570,
     overflow: "hidden",
     backgroundColor: "rgba(161, 40, 77, 0.49)",
