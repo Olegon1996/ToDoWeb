@@ -4,6 +4,7 @@ import ToDoStatus from "./ToDoStatus";
 import ToDoCompleted from "./ToDoCompleted";
 import ToDoInCompleted from "./ToDoInCompleted";
 import ToDoAll from "./ToDoAll";
+import { startFetchingData } from "../redux/actions/fetchActions";
 
 import Badge from "@material-ui/core/Badge";
 import NotificationsActiveOutlinedIcon from "@material-ui/icons/NotificationsActiveOutlined";
@@ -14,14 +15,21 @@ import Background from "./BGAnimation/Background";
 import DropMenu from "./DropMenu/DropMenu";
 import { Button } from "@material-ui/core";
 
-function ToDoApp({ todoLength, isUser, vereficateFunc, logOutFunc }) {
+function ToDoApp({ todoLength, logOutFunc, startFetchingData }) {
   const history = useHistory();
+  const Token = JSON.parse(sessionStorage.getItem('token'));
+
+  React.useEffect(() => {
+    if(Token){
+      startFetchingData(Token.uid);
+    }
+  }, []);
 
   useEffect(() => {
-    if (!isUser) {
+    if (!Token) {
       history.push("/");
     }
-  }, [isUser]);
+  }, [history, Token]);
 
   return (
     <div className="mainBlock">
@@ -44,7 +52,7 @@ function ToDoApp({ todoLength, isUser, vereficateFunc, logOutFunc }) {
             >
               <NotificationsActiveOutlinedIcon fontSize="large" />
             </Badge>
-            {/* <DropMenu/> */}
+            <DropMenu/>
           </div>
           <ToDoAdd />
           <Route exact path="/app/" component={ToDoAll} />
@@ -65,12 +73,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    vereficateFunc: () => {
-      dispatch({type: 'VEREFICATE_REQUEST'});
-    },
     logOutFunc: () => {
       dispatch({type: 'LOGOUT_REQUEST'});
-    }
+    },
+    startFetchingData: (id) => dispatch(startFetchingData(id))
   };
 };
 

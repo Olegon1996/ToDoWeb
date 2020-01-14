@@ -1,5 +1,4 @@
 import { auth, database } from "../firebase";
-import store from "../redux/store";
 import Axios from "axios";
 
 const LogInFunc = async (email, password) => {
@@ -35,8 +34,4 @@ const LogOut = async () => {
   return user;
 };
 
-const Vereficte = async () => {
-  return auth.onAuthStateChanged( user => user);
-};
-
-export { LogInFunc, LogUpFunc, Vereficte, LogOut };
+export { LogInFunc, LogUpFunc, LogOut };

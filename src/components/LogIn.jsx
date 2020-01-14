@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 import UserModal from "./CreateUserModal/UserModal";
 import { useHistory } from "react-router-dom";
 
-function LogIn({ logIn, isLogIn }) {
+function LogIn({ logIn }) {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const Token = sessionStorage.getItem('token');
 
   const closeModal = value => setIsOpen(value);
   const logUp = () => setIsOpen(true);
@@ -29,10 +30,10 @@ function LogIn({ logIn, isLogIn }) {
   };
 
   useEffect(() => {
-    if (isLogIn) {
+    if (Token) {
       history.push("/app");
     }
-  }, [isLogIn]);
+  }, [Token, history]);
 
   
   return (

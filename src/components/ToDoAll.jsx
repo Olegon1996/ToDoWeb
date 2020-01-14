@@ -3,12 +3,8 @@ import { connect } from "react-redux";
 import "../style.css";
 import ToDoList from "./ItemList";
 import MoodBadTwoToneIcon from "@material-ui/icons/MoodBadTwoTone";
-import { startFetchingData } from "../redux/actions/fetchActions";
 
-function ToDoAll({ todos, startFetchingData, userID }) {
-  React.useEffect(() => {
-    startFetchingData(userID);
-  }, [startFetchingData]);
+function ToDoAll({ todos }) {
 
   return (
     <React.Fragment>
@@ -40,7 +36,5 @@ const mapStateToProps = state => ({
   todos: state.ToDoReducer.todos,
   userID: state.AuthReducer.userInfo.id
 });
-const mapDispatchToProps = dispatch => ({
-  startFetchingData: (id) => dispatch(startFetchingData(id))
-});
-export default connect(mapStateToProps, mapDispatchToProps)(ToDoAll);
+
+export default connect(mapStateToProps)(ToDoAll);

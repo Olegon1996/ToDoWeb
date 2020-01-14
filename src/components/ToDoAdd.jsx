@@ -6,11 +6,10 @@ import "../style.css";
 
 import AddButton from "../components/ButtonAdd/ButtonAdd";
 import Input from "../components/TextField/TextField";
-import { useMediaQuery } from "@material-ui/core";
 
-
-function ToDoAdd({ addToDoItem, userID }) {
+function ToDoAdd({ addToDoItem }) {
   const [value, setValue] = useState("");
+  const Token = JSON.parse(sessionStorage.getItem('token'));
 
   function handleValue(e) {
     setValue(e.target.value);
@@ -18,7 +17,7 @@ function ToDoAdd({ addToDoItem, userID }) {
 
   function saveToDo() {
     if (value) {
-      addToDoItem(value, userID);
+      addToDoItem(value, Token.uid);
       setValue("");
     } else {
       return null;

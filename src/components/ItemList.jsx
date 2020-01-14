@@ -8,15 +8,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
-
 import { connect } from "react-redux";
 import { changeStatus, deleteTodoItem } from "../redux/actions/actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '80%',
-    // minWidth: 300,
-    // maxWidth: 600,
     maxHeight: 570,
     overflow: "hidden",
     backgroundColor: "rgba(161, 40, 77, 0.49)",
@@ -29,10 +26,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ToDoList({ changeToDoItem, deleteTodoItem, currentTodosList, userID }) {
+function ToDoList({ changeToDoItem, deleteTodoItem, currentTodosList }) {
+  const Token = JSON.parse(sessionStorage.getItem('token'));
   const classes = useStyles();
-  const handleToggle = value => () => changeToDoItem(value, userID);
-  const deleteItem = value => () => deleteTodoItem(value, userID);
+
+  const handleToggle = value => () => changeToDoItem(value, Token.uid);
+  const deleteItem = value => () => deleteTodoItem(value, Token.uid);
 
   return (
     <List className={classes.root}>
@@ -78,12 +77,6 @@ function ToDoList({ changeToDoItem, deleteTodoItem, currentTodosList, userID }) 
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    userID: state.AuthReducer.userInfo.id
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     changeToDoItem: (obj, userID) => {
@@ -95,4 +88,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);
+export default connect(null, mapDispatchToProps)(ToDoList);
