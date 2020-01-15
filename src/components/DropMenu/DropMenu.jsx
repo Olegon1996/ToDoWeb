@@ -199,7 +199,7 @@ const styleBtn = {
   borderBottomRightRadius: "50px",
   borderBottomLeftRadius: "50px",
   position: "fixed",
-  top: "247px",
+  top: "253px",
   left: "0",
   zIndex: "2",
   textTransform: 'none',
