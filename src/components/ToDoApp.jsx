@@ -43,9 +43,10 @@ function ToDoApp({ todoLength, logOutFunc, startFetchingData }) {
               color="secondary"
               style={{
                 position: "absolute",
-                top: "15px",
-                left: "100px",
-                zIndex: "10"
+                top: "20px",
+                right: "20px",
+                zIndex: "10",
+                filter: 'invert(1)',
               }}
             >
               <NotificationsActiveOutlinedIcon fontSize="large" />
