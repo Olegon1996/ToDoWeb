@@ -4,39 +4,40 @@ import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import UserModal from "./CreateUserModal/UserModal";
 import { useHistory } from "react-router-dom";
+import PositionedSnackbar from './LogInValidator/Validator';
 
-function LogIn({ logIn }) {
+function LogIn({ logIn, errorMessage }) {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const Token = sessionStorage.getItem("token");
+  const [isOpenValidator, setIsOpenValidator] = useState(false);
 
   const closeModal = value => setIsOpen(value);
   const logUp = () => setIsOpen(true);
-
-  const handleChangePassword = e => {
-    setPassword(e.target.value);
-  };
-
-  const handleChangeEmail = e => {
-    setEmail(e.target.value);
-  };
+  const handleChangePassword = e => setPassword(e.target.value);
+  const handleChangeEmail = e => setEmail(e.target.value);
 
   const LogInSubmit = () => {
-    if (email !== "" && password !== "") {
       logIn(email, password);
-    }
   };
 
   useEffect(() => {
+    if(errorMessage){
+      setIsOpenValidator(true)
+    }
     if (Token) {
       history.push("/app");
     }
-  }, [Token, history]);
+  }, [Token, history, errorMessage]);
 
+  const closeIsOpen = (value) => {
+    setIsOpenValidator(value);
+  }
   return (
     <React.Fragment>
+      <PositionedSnackbar isOpen={isOpenValidator} closeIsOpen={closeIsOpen}/>
       <h2
         style={{
           fontFamily: "monospace",
@@ -54,7 +55,6 @@ function LogIn({ logIn }) {
           label="Email"
           name="todo"
           type="email"
-          required
           value={email}
           variant="outlined"
           color="secondary"
@@ -68,7 +68,6 @@ function LogIn({ logIn }) {
           label="Password"
           name="todo"
           type="password"
-          required
           value={password}
           variant="outlined"
           color="secondary"
@@ -112,7 +111,8 @@ const style = {
 
 const mapStateToProps = state => {
   return {
-    isLogIn: state.AuthReducer.isLogIn
+    isLogIn: state.AuthReducer.isLogIn,
+    errorMessage: state.AuthReducer.errorText
   };
 };
 
